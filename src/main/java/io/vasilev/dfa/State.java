@@ -1,4 +1,6 @@
 package io.vasilev.dfa;
 
-public record State(int index) {
+import java.io.Serializable;
+
+public record State(int index) implements Serializable {
 }

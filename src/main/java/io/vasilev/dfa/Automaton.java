@@ -1,15 +1,19 @@
 package io.vasilev.dfa;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-public final class Automaton {
+public final class Automaton implements Serializable {
 
     private final State initialState;
     private final State finalState;
     private final Set<State> states;
     private final Set<Transition> transitions;
-    private final TransitionMap map;
+    private transient TransitionMap map;
 
     public Automaton(State initialState, State finalState, Set<State> states, Set<Transition> transitions) {
         this.initialState = initialState;
@@ -45,5 +49,11 @@ public final class Automaton {
         final var letter = new Letter(remaining.charAt(0));
         final var next = map.get(current, letter);
         return next.map(s -> loop(s, remaining.substring(1))).orElse(false);
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        map = TransitionMap.fromTransitionSet(transitions);
     }
 }

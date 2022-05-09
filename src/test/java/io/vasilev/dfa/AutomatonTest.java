@@ -10,12 +10,12 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AutomatonTest {
+final class AutomatonTest {
 
     @ParameterizedTest
     @MethodSource("arguments")
     @DisplayName("Test automaton from assignment")
-    public void testAutomaton(String word, boolean expected) {
+    void testAutomaton(String word, boolean expected) {
         final var state0 = new State(0);
         final var state1 = new State(1);
         final var state2 = new State(2);

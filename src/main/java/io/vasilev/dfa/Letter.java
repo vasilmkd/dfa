@@ -1,4 +1,6 @@
 package io.vasilev.dfa;
 
-public record Letter(char c) {
+import java.io.Serializable;
+
+public record Letter(char c) implements Serializable {
 }
